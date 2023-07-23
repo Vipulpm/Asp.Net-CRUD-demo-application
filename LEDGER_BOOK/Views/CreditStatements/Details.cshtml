@@ -1,0 +1,89 @@
+﻿@model LEDGER_BOOK.Models.CreditStatement
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <h4>Credit Statement Details</h4>
+    <hr />
+    <div id="SaveDiv">
+        <div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="bg-black text-white">
+                        <center><h5>GANGAMALA TRADING CONCERN </h5></center>
+                        <center><h6>Gurbhakot-8, Surkhet</h6></center>
+                    </div>
+                    <pre>Statement_id :@Model.Id</pre>
+                    <pre>Issued Date :</pre>
+                    <pre>Signature :</pre>
+                </div>
+            </div>
+        </div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CustomerName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Mobile)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Mobile)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Product)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Product)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+        </dl>
+    </div>
+    </div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-outline-success">Edit</a> |
+    <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a> |
+    <a id="printPDF" class="btn btn-outline-success">Print Data</a>
+</div>
+
+@section scripts{
+    <script>
+        $("#printPDF").click(function (){
+            var element = document.getElementById('SaveDiv');
+
+            html2pdf().from(element).set({
+                margin : [30, 10, 5, 10], //top,left,bottom,right
+                pagebreak : {avoid: 'tr'},
+                jsPDF : { orientation : 'landscape', unit : 'pt', format : 'letter', compressPDF: true} 
+            }).save()
+        });
+    </script>
+}
